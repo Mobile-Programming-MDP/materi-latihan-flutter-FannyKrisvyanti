@@ -10,38 +10,90 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: "Hallo Fanny",
-        theme: ThemeData(primarySwatch: Colors.teal),
-        home: FirstScreen());
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(title: 'Widget Demo'),
+    );
   }
 }
 
-class FirstScreen extends StatelessWidget {
-  const FirstScreen({super.key});
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Fanny"),
-        actions: <Widget>
-            //Icon di kanan appbar
-            [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.search,
-                color: Colors.black,
-              ))
-        ],
-        leading: IconButton
-            //Icon di kiri appbar
-            (
-                onPressed: () {},
-                icon: const Icon(Icons.home, color: Colors.black)),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
       ),
-      body: const Center(
-        child: Text("Fanny"),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              height: 200.0,
+              margin: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: const Text(
+                'Ini adalah contoh penggunaan Container',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Tindakan yang ingin dilakukan saat tombol ditekan
+                print('Tombol Elevated ditekan!');
+              },
+              child: const Text('Tombol Elevated'),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                const Text('Rating: 4.5'),
+              ],
+            ),
+            Image.network(
+              'https://picsum.photos/id/7/300/200',
+              width: 200.0,
+              height: 150.0,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
       ),
     );
   }
